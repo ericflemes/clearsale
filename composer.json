@@ -16,7 +16,7 @@
       "email": "ericflemes@gmail.com"
     }
   ],
-  "minimum-stability": "dev",
+  "minimum-stability": "dev-master",
   "autoload": {
     "files": [ "registration.php" ],
     "psr-4": {
