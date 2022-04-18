@@ -1,12 +1,14 @@
 {
   "name": "clearsale2/integration",
   "description": "End-to-end Fraud management solution, helping e-commerce merchants protect their business by carefully sorting through orders to give the most accurate determination of Fraud risk, and then handling each transaction as necessary.",
-  "type": "magento2-module",
   "require": {
     "php": ">=7.3.0"
   },
+  "type": "magento2-module",
+  "version": "3.0.1",
   "license": [
-    "OSL-3.0"
+    "OSL-3.0",
+    "AFL-3.0"
   ],
   "authors": [
     {
