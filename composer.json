@@ -1,7 +1,7 @@
 {
   "name": "clearsale2/integration",
   "license": "GPL-3.0-only",
-  "version": "3.0.3",
+  "version": "1.0.0",
   "type": "magento2-module",
   "description": "End-to-end Fraud management solution, helping e-commerce merchants protect their business by carefully sorting through orders to give the most accurate determination of Fraud risk, and then handling each transaction as necessary.",
   "repositories": [
