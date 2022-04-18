@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <clearsale_configuration>
+            <cs_config>
+                <analyzing_clearsale>analyzing_clearsale</analyzing_clearsale>
+                <approved_clearsale>approved_clearsale</approved_clearsale>
+                <denied_clearsale>denied_clearsale</denied_clearsale>
+                <canceled_clearsale>canceled_clearsale</canceled_clearsale>
+	        </cs_config>
+			<cs_optional_config>
+				<match_in_comments>Type text to match here...</match_in_comments>
+                <days_ago_limit>5</days_ago_limit>
+			</cs_optional_config>
+        </clearsale_configuration>
+    </default>
+</config>
