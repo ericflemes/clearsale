@@ -150,7 +150,7 @@ class ClearsaleObserver implements ObserverInterface
             $isActive = $this->clearSaleTotalConfig->getValue('clearsale_configuration/cs_config/active', \Magento\Store\Model\ScopeInterface::SCOPE_STORE, $storeId);
 
             if ($isActive) {
-                
+
                 if ($order->dataHasChangedFor('state') && $order->getStatus() != 'pending_payment') {
 
                     $payment = $order->getPayment();
@@ -183,13 +183,14 @@ class ClearsaleObserver implements ObserverInterface
 
                             }
 
-                        } else {
-                            $this->logger->info('Order Update : ID: ' . $orderID);
                         }
+                    } else {
+                        throw new Exception('No Payment data to this order'. $orderID);
                     }
-
                 }
 
+            } else {
+                throw new Exception('Please check module settings! Clear Sale module is not active.');
             }
         } catch (\Exception $e) {
             $this->logger->info($e->getMessage());
@@ -218,7 +219,7 @@ class ClearsaleObserver implements ObserverInterface
                     $i++;
                 }
             }
-            
+
             $filterGroup = $this->filterGroupBuilder->setFilters($filters)->create();
             $searchCriteria = $this->searchCriteriaBuilder->setFilterGroups([$filterGroup])->create();
 
@@ -373,7 +374,7 @@ class ClearsaleObserver implements ObserverInterface
             }
 
             $currency = (empty($order->getOrderCurrencyCode())) ? "USD" : $order->getOrderCurrencyCode();
-			
+
             $legalDocument = "";
 
             $date = new \DateTime($order->getCreatedAt());
@@ -476,12 +477,12 @@ class ClearsaleObserver implements ObserverInterface
                             $orderComment[] = $status->getComment();
                         }
                     }
-                    
+
                     if(!empty($orderComment)){
                         $matches = join(" | ", $orderComment);
                         $finalmatch = $needle . ' || ' . (substr($matches, 0, (996 - strlen($needle))));
                         $this->logger->info('Final string match = ' . $finalmatch);
-                        
+
                         $clearsaleOrder->CustomFields[$customFieldIndex] = new \Clearsale\Integration\Model\Order\Entity\CustomField();
                         $clearsaleOrder->CustomFields[$customFieldIndex]->Type = 1;
                         $clearsaleOrder->CustomFields[$customFieldIndex]->Name = 'COMMENTS_FILTER';

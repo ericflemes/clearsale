@@ -65,11 +65,10 @@
 					<label>Create invoice on approved</label>
 					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
 				</field>
-				<field id="enabled_log" translate="label" type="select" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
-					<label>Enable transaction log</label>
-					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
-					<config_path>clearsale/integration/enabled_log</config_path>
-				</field>
+                <field id="enabled_log" type="select" translate="label" showInDefault="1" showInWebsite="1" sortOrder="40" showInStore="1">
+                    <label>Enable transaction log</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
 			</group>
 			<group id="cs_optional_config" translate="label" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
 				<label>Optional Configuration</label>

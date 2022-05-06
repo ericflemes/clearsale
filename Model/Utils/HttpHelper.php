@@ -1,22 +1,25 @@
 <?php
 namespace Clearsale\Integration\Model\Utils;
 use Psr\Log\LoggerInterface;
-use Clearsale\Integration\Model\Utils\HttpMessage;
 
 class HttpHelper
 {
 
     protected $scopeConfig;
 	protected $logger;
+    protected $loggerclear;
 
 	public function __construct(
         \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig,
-        LoggerInterface $logger
+        LoggerInterface $logger,
+        \Clearsale\Integration\Helper\Integration $loggerclear
     ) {
         $this->scopeConfig = $scopeConfig;
         $this->logger = $logger;
+        $this->loggerclear = $loggerclear;
     }
     public function postData($data, $url) {
+
 		$return = new HttpMessage();
 		$dataString =  $this->json_encode_unicode($data);
 		$isLogenabled = $this->scopeConfig->getValue('clearsale_configuration/cs_config/enabled_log',\Magento\Store\Model\ScopeInterface::SCOPE_STORE);
@@ -28,7 +31,7 @@ class HttpHelper
 		{
 			$this->logger->info($dataString);
 		}
-				
+
 		$ch = curl_init($url);
 		curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
 		curl_setopt($ch, CURLOPT_POSTFIELDS, $dataString);
@@ -45,22 +48,25 @@ class HttpHelper
 			$return->HttpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 			$this->logger->info(curl_error($ch));
 		}
-		else 
+		else
 		{
 			$return->HttpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 		}
 		curl_close($ch);
-		
+
 		$jsonReturn = $return->Body;
 		if($isLogenabled)
 		{
-		 
-		 $this->logger->info($jsonReturn);
+            $this->loggerclear->logClearSale('HttpHelper', 'postData:60', $url, '[POST]', $data, $return->Body);
+            $this->logger->info($jsonReturn);
 		}
 		if($return->HttpCode != 200)
 		{
+            $this->loggerclear->logClearSale('HttpHelper', 'postData:65', $url, '[Response Error]', $data, $return->Body);
 			$this->logger->info($return->Body);
 		}
+
+
 		return $return;
 	}
 
